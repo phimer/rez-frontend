@@ -2,122 +2,150 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import Recipes from './components/Recipes'
-import AddTask from './components/AddTask'
+import AddRecipe from './components/AddRecipe'
+import UpdateRecipe from './components/UpdateRecipe'
 import Footer from './components/Footer'
 import About from './components/About'
 
+const BACKEND_ADDRESS = 'http://localhost:8080/api'
 
 const App = () => {
 
   const [showAddTask, setShowAddTask] = useState(false) //showAddTask is boolean, setShowAddTask is function to change boolean 
 
+  const [showAddRecipe, setShowAddRecipe] = useState(false)
+
   const [recipes, setRecipes] = useState([])
 
 
-  useEffect(() => {
 
-    const getTasks = async () => {
-      const recipesFromServer = await fetchRecipes()
-      setRecipes(recipesFromServer)
-    }
-    getTasks()
+  //not really sure
+  useEffect(() => {
+    getRecipesAndSetState()
   }, [])
+
+
+  const getRecipesAndSetState = async () => {
+    console.log('useEffect')
+    const recipesFromServer = await fetchRecipes()
+    setRecipes(recipesFromServer)
+  }
+
 
   //Fetch Recipes
   const fetchRecipes = async () => {
-    console.log('fetchRecipes')
+
     const res = await fetch('http://localhost:8080/api/recipes')
     const data = await res.json()
-    console.log(data)
 
     return data
   }
 
   //Fetch Recipe
   const fetchRecipe = async (id) => {
-    console.log('fetchRecipe')
+
+    console.log(id)
+
     const res = await fetch(`http://localhost:8080/api/recipe/${id}`)
     const data = await res.json()
-    console.log(data)
 
     return data
   }
 
 
 
-  //Add Task
-  const addTask = async (task) => {
+  //Add Recipe
+  const addRecipe = async (recipe) => {
 
-    const res = await fetch('http://localhost:5000/tasks', {
+    const res = await fetch(`${BACKEND_ADDRESS}/recipe`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
       },
-      body: JSON.stringify(task)
+      body: JSON.stringify(recipe)
     })
 
     const data = await res.json()
 
     setRecipes([...recipes, data]) //... add onto existing tasks
 
-    console.log(task);
-    const id = Math.floor(Math.random() * 10000) + 1
-    const newTask = { id, ...task }
-    setRecipes([...recipes, newTask])
+    console.log(recipe);
+
+
   }
 
-  // Delete Task
-  const deleteTask = async (id) => {
-
-    await fetch(`http://localhost:5000/tasks/${id}`, {
-      method: 'DELETE'
-    })
+  // Delete Recipe
+  const deleteRecipe = async (id) => {
 
     console.log('delete', id);
-    setRecipes(recipes.filter((task) => task.id !== id));
-  }
 
-  // Toggle reminder (update)
-  const toggleReminder = async (id) => {
-    console.log(id);
-
-    const taskToToggle = await fetchRecipe(id)
-    const updTask = {
-      ...taskToToggle,
-      reminder: !taskToToggle.reminder
+    const recipe = {
+      id: Number(id)
     }
 
-    const res = await fetch(`http://localhost:5000/taks/${id}`, {
-      method: 'PUT',
-      header: {
+    const json = JSON.stringify(recipe)
+
+    console.log(recipe)
+
+    const res = await fetch(`${BACKEND_ADDRESS}/recipe`, {
+      method: 'DELETE',
+      headers: {
         'Content-type': 'application/json'
       },
-      body: JSON.stringify(updTask)
+      body: json
     })
 
+    console.log('res; ', res);
 
-    const data = await res.json()
+    if (res.status === 200) {
+      setRecipes(recipes.filter((recipe) => recipe.id !== id));
+    } else {
+      console.log('delete unsuccessful')
+      //some alert on screen
+    }
 
-    setRecipes(recipes.map((task) => task.id === id ? { ...task, reminder: data.reminder } : task));
 
   }
+
+  // Update Recipe
+  const updateRecipe = async (recipe) => {
+
+    console.log('update', recipe.id);
+
+    console.log(recipe)
+
+    const res = await fetch(`${BACKEND_ADDRESS}/recipe`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(recipe)
+    })
+
+    const data = await res.json()
+    console.log('data: ', data);
+
+    getRecipesAndSetState()
+
+  }
+
 
   return (
     <Router>
 
       <div className='container'>
 
-        <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
+        <Header onAdd={() => setShowAddRecipe(!showAddRecipe)} showAdd={showAddRecipe} />
 
         <Routes>
           <Route path='/' exact element={
             (
               <>
-                {showAddTask && <AddTask onAdd={addTask} />}
+                {showAddRecipe && <AddRecipe onAdd={addRecipe} />}
 
 
                 {/* {recipes.length > 0 ? <Recipes recipes={recipes} onDelete={deleteTask} onToggle={showRecipe} /> : 'No tasks here'} */}
-                <Recipes recipes={recipes} onDelete={deleteTask} onToggle={fetchRecipe} />
+                <Recipes recipes={recipes} onToggle={fetchRecipe} onDelete={deleteRecipe} onUpdate={updateRecipe} />
 
               </>
             )

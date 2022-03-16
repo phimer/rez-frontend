@@ -1,15 +1,17 @@
 import React from 'react'
 
 const FullRecipe = ({ recipe }) => {
-    return (
-        <div>
-            <h1>{recipe.name}</h1>
-            <h4>{recipe.category}</h4>
-            <h4>{recipe.time}</h4>
-            <br />
 
-            <p>{recipe.ingredients}</p>
-            <p>{recipe.preparation}</p>
+
+    return (
+        <div className="full-recipe">
+            <hr id="upper-hr" />
+            <h4 className="full-recipe-headings">Zutaten:</h4>
+            <div className="full-recipe-paragraphs" id="ingredients">{recipe.ingredients}</div>
+            <hr />
+            <h4 className="full-recipe-headings" id="preparation-heading">Zubereitung:</h4>
+            <div className="full-recipe-paragraphs" id="preparation">{recipe.preparation}</div>
+
 
 
 
