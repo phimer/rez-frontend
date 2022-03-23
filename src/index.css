@@ -221,3 +221,17 @@ hr {
   height: 40px;
 }
 
+.main-btn{
+  background-color: #5783EA;
+  text-align: center;
+}
+
+.secondary-btn{
+  background-color: #A8EEEA;
+  margin-top: 20px;
+  text-align: center;
+}
+
+#login-heading{
+  color: #5783EA;
+}
