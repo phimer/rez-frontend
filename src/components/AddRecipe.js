@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 
-const AddRecipe = ({ onAdd }) => {
+const AddRecipe = ({ onAdd, errorMessage }) => {
 
     const [name, setName] = useState('')
     const [time, setTime] = useState('')
@@ -9,6 +9,7 @@ const AddRecipe = ({ onAdd }) => {
     const [preparation, setPreparation] = useState('')
     const [category, setCategory] = useState('')
 
+    const [timeErrorMessage, setTimeErrorMessage] = useState('')
 
     const countLinesInText = (text) => {
 
@@ -21,7 +22,7 @@ const AddRecipe = ({ onAdd }) => {
             }
         }
 
-        return count + 2;
+        return count + 3;
     }
 
 
@@ -53,22 +54,40 @@ const AddRecipe = ({ onAdd }) => {
                     placeholder='Rezeptname'
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    required
                 />
             </div>
 
             <div className='form-control'>
-                <label>Zubereitungszeit</label>
+                <label>Zubereitungszeit in Minuten</label>
                 <input type='text' placeholder='Zeit in Minuten (z.B. 30)'
                     value={time}
-                    onChange={(e) => setTime(e.target.value)}
+
+                    onChange={(e) => {
+                        setTimeErrorMessage('')
+                        if (isNaN(e.nativeEvent.data)) {
+                            setTimeErrorMessage('Time has to be a number.')
+
+                        } else {
+                            setTime(e.target.value)
+                        }
+
+                        setTimeout(() => {
+                            setTimeErrorMessage('')
+                        }, 3000);
+                    }}
+                    required
                 />
             </div>
+
+            {(timeErrorMessage !== '') && <h4 className="recipe-error-message">{timeErrorMessage}</h4>}
 
             <div className='form-control'>
                 <label>Zutaten</label>
                 <textarea rows={countLinesInText(ingredients)} type='text' placeholder=''
                     value={ingredients}
                     onChange={(e) => setIngredients(e.target.value)}
+                    required
                 />
             </div>
 
@@ -77,6 +96,7 @@ const AddRecipe = ({ onAdd }) => {
                 <textarea rows={countLinesInText(preparation)} type='text' placeholder=''
                     value={preparation}
                     onChange={(e) => setPreparation(e.target.value)}
+                    required
                 />
             </div>
 
@@ -85,6 +105,7 @@ const AddRecipe = ({ onAdd }) => {
                 <input type='text' placeholder='vegan,easy'
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
+                    required
                 />
             </div>
             {/* <div className='form-control'>
@@ -95,8 +116,8 @@ const AddRecipe = ({ onAdd }) => {
                     onChange={(e) => setReminder(e.currentTarget.checked)}
                 />
             </div> */}
-
-            <input type='submit' value='Rezept hinzufügen' className='btn btn-block' />
+            {(errorMessage !== '') && <h4 className="recipe-error-message">{errorMessage}</h4>}
+            <input type='submit' value='Rezept hinzufügen' className='btn btn-block recipe-btn add-recipe-btn' />
         </form>
     )
 }

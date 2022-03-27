@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import Recipes from './components/Recipes'
 import AddRecipe from './components/AddRecipe'
-import UpdateRecipe from './components/UpdateRecipe'
+import LoginHeader from './components/LoginHeader'
 import Footer from './components/Footer'
 import About from './components/About'
 import LoginForm from './components/LoginForm'
@@ -12,14 +12,17 @@ const BACKEND_ADDRESS = 'http://localhost:8080/api'
 
 const App = () => {
 
-  const [showAddTask, setShowAddTask] = useState(false) //showAddTask is boolean, setShowAddTask is function to change boolean 
-
-  const [showAddRecipe, setShowAddRecipe] = useState(false)
-  const [showLoginUser, setShowLoginUser] = useState(false)
-  const [message, setMessage] = useState('')
-  const [userLoggedIn, setUserLoggedIn] = useState(false)
-
   const [recipes, setRecipes] = useState([])
+  const [showAddRecipe, setShowAddRecipe] = useState(false)
+
+  const [wrongUsernamePasswordMessage, setWrongUsernamePasswordMessage] = useState('')
+  const [recipeErrorMessage, setRecipeErrorMessage] = useState({ id: '', message: '' })
+  const [addNewRecipeErrorMessage, setAddNewRecipeErrorMessage] = useState('');
+
+  const [userLoggedIn, setUserLoggedIn] = useState(false)
+  const [showLoginUser, setShowLoginUser] = useState(false)
+  const [currentLoggedInUser, setCurrentLoggedInUser] = useState('')
+
 
 
 
@@ -28,18 +31,38 @@ const App = () => {
 
   const checkIfUserIsAuthenticated = async () => {
 
-
     // check if token is valid
     const res = await fetch(`${BACKEND_ADDRESS}/authenticate/valid`, {
-      method: 'POST'
+      method: 'GET',
+      headers: {
+        'Authorization': localStorage.getItem("token")
+      }
     })
 
-    console.log("res: ", res)
+    if (res.status === 200) {
+      setUserLoggedIn(true)
+      getNameOfCurrentUser()
+    }
+  }
 
+
+  const getNameOfCurrentUser = async () => {
+
+    const res = await fetch(`${BACKEND_ADDRESS}/authenticate/username`, {
+      method: 'GET',
+      headers: {
+        'Authorization': localStorage.getItem("token")
+      }
+    })
+
+    const data = await res.json()
+
+    if (res.status === 200) {
+      setCurrentLoggedInUser(data)
+    }
 
 
   }
-
 
 
   //not really sure
@@ -50,7 +73,6 @@ const App = () => {
 
 
   const getRecipesAndSetState = async () => {
-    console.log('useEffect')
     const recipesFromServer = await fetchRecipes()
     setRecipes(recipesFromServer)
   }
@@ -81,31 +103,46 @@ const App = () => {
   //Add Recipe
   const addRecipe = async (recipe) => {
 
+    console.log('add: ', recipe)
+
+
     const res = await fetch(`${BACKEND_ADDRESS}/recipe`, {
       method: 'POST',
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'Authorization': localStorage.getItem("token")
       },
       body: JSON.stringify(recipe)
     })
 
     const data = await res.json()
 
-    setRecipes([...recipes, data]) //... add onto existing tasks
 
-    console.log(recipe);
+    //actions depending on response:
+
+    if (res.status === 200) {
+      setRecipes([...recipes, data]) //... add onto existing tasks
+      setShowAddRecipe(false)
+    } else {
+      if (res.status === 403) {
+        setAddNewRecipeErrorMessage('You have to be logged in to add recipes.')
+      } else {
+        setAddNewRecipeErrorMessage('Internal Error. Try again.')
+      }
+      setTimeout(() => {
+        setAddNewRecipeErrorMessage('')
+      }, 3000);
+    }
+
 
 
   }
 
   // Delete Recipe
-  const deleteRecipe = async (id) => {
+  const deleteRecipe = async (recipe) => {
 
-    console.log('delete', id);
+    console.log('delete', recipe.id);
 
-    const recipe = {
-      id: Number(id)
-    }
 
     const json = JSON.stringify(recipe)
 
@@ -124,11 +161,14 @@ const App = () => {
     console.log('res; ', res);
 
     if (res.status === 200) {
-      setRecipes(recipes.filter((recipe) => recipe.id !== id));
+      setRecipes(recipes.filter((r) => r.id !== recipe.id));
+    } else if (res.status === 403) {
+      setRecipeErrorMessage({ id: recipe.id, message: 'You cannot delete this recipe. Users can only edit or delete their own recipes.' })
     } else {
-      console.log('delete unsuccessful')
-      //some alert on screen
+      setRecipeErrorMessage({ id: recipe.id, message: 'Delete unsuccessful.' })
     }
+
+    clearEditDeleteErrorMessage();
 
 
   }
@@ -149,7 +189,16 @@ const App = () => {
     })
 
     const data = await res.json()
-    console.log('data: ', data);
+
+    if (res.status === 200) {
+      setRecipes(recipes.filter((r) => r.id !== recipe.id));
+    } else if (res.status === 403) {
+      setRecipeErrorMessage({ id: recipe.id, message: 'You cannot edit this recipe. Users can only edit or delete their own recipes.' })
+    } else {
+      setRecipeErrorMessage({ id: recipe.id, message: 'Edit unsuccessful.' })
+    }
+
+    clearEditDeleteErrorMessage();
 
     getRecipesAndSetState()
 
@@ -158,6 +207,8 @@ const App = () => {
   // Login User
   const loginUser = async (loginData) => {
     console.log(loginData);
+
+    setWrongUsernamePasswordMessage('');
 
     const res = await fetch(`${BACKEND_ADDRESS}/authenticate`, {
       method: 'POST',
@@ -176,13 +227,14 @@ const App = () => {
       setShowLoginUser(false)
       setUserLoggedIn(true)
       localStorage.setItem("token", "Bearer " + data.jwt)
+      setCurrentLoggedInUser(loginData.username)
 
     } else {
-      setMessage('Wrong Username or Password')
+      setWrongUsernamePasswordMessage('Wrong Username or Password')
     }
   }
 
-  // Create User
+  // Create User and login
   const createUser = async (user) => {
     console.log('create user: ' + user.username, user.password)
 
@@ -196,39 +248,59 @@ const App = () => {
 
     const data = await res.json()
     console.log(data)
+
+    setCurrentLoggedInUser(user.username)
+    setUserLoggedIn(true)
+    setShowLoginUser(false)
   }
 
+  // Logout User
+  const logoutUser = async () => {
+    localStorage.removeItem("token")
+    setUserLoggedIn(false)
+  }
+
+
+  // Clear Error Messages
+  const clearEditDeleteErrorMessage = () => {
+    setTimeout(() => {
+      setRecipeErrorMessage({ id: '', message: '' })
+    }, 5000);
+  }
 
   return (
     <Router>
 
-      <div className='container'>
+      <div className='app'>
 
-        <Header onAdd={() => setShowAddRecipe(!showAddRecipe)} showAdd={showAddRecipe}
-          onLogin={() => setShowLoginUser(!showLoginUser)} showLogin={showLoginUser} login={loginUser}
-          userLoggedIn={userLoggedIn}
-        />
+        <div className='login-header-div'>
+          <LoginHeader onLoginClick={() => setShowLoginUser(!showLoginUser)} showLogin={showLoginUser} login={loginUser}
+            userLoggedIn={userLoggedIn} onLogout={logoutUser} currentUser={currentLoggedInUser} />
 
-        <Routes>
-          <Route path='/' exact element={
-            (
-              <>
-                {showAddRecipe && <AddRecipe onAdd={addRecipe} />}
+          {showLoginUser && <LoginForm onLogin={loginUser} onCreate={createUser} message={wrongUsernamePasswordMessage} />}
+        </div>
 
-                {showLoginUser && <LoginForm onLogin={loginUser} onCreate={createUser} message={message} />}
+        <Header onAdd={() => setShowAddRecipe(!showAddRecipe)} showAdd={showAddRecipe} />
 
+        <div className='container'>
+          <Routes>
+            <Route path='/' exact element={
+              (
+                <>
+                  {showAddRecipe && <AddRecipe onAdd={addRecipe} errorMessage={addNewRecipeErrorMessage} />}
 
-                {/* {recipes.length > 0 ? <Recipes recipes={recipes} onDelete={deleteTask} onToggle={showRecipe} /> : 'No tasks here'} */}
-                <Recipes recipes={recipes} onToggle={fetchRecipe} onDelete={deleteRecipe} onUpdate={updateRecipe} />
+                  <Recipes recipes={recipes} onToggle={fetchRecipe} onDelete={deleteRecipe} onUpdate={updateRecipe} errorMessage={recipeErrorMessage} />
+                </>
+              )
 
-              </>
-            )
-
-          } />
-          <Route path='/about' element={<About />} />
-        </Routes>
-        <Footer />
+            } />
+            <Route path='/about' element={<About />} />
+          </Routes>
+        </div>
       </div>
+      <Footer />
+
+
     </Router>
   )
 }

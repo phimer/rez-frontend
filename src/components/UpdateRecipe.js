@@ -96,11 +96,10 @@ const UpdateRecipe = ({ onUpdate, recipe, setShowUpdateRecipe }) => {
                 />
             </div> */}
 
-            <input type='submit' value='Update' color={'blue'} className='btn btn-block submit-btn' />
+            <input type='submit' value='Update' color="blue" className='btn btn-block recipe-btn update-recipe-btn' />
         </form>
     )
 }
 
 export default UpdateRecipe
 
-//className = { 'recipe-button'} color = { 'blue'}

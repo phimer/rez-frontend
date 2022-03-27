@@ -12,10 +12,6 @@ const FullRecipe = ({ recipe }) => {
             <h4 className="full-recipe-headings" id="preparation-heading">Zubereitung:</h4>
             <div className="full-recipe-paragraphs" id="preparation">{recipe.preparation}</div>
 
-
-
-
-
         </div>
     )
 }

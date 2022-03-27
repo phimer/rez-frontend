@@ -4,11 +4,12 @@ import { useState } from 'react';
 import Button from './Button'
 import UpdateRecipe from './UpdateRecipe'
 
-const Recipe = ({ recipe, onToggle, onDelete, onUpdate }) => {
+const Recipe = ({ recipe, onToggle, onDelete, onUpdate, errorMessage }) => {
 
 
     const [showFullRecipe, setShowFullRecipe] = useState(false)
     const [showUpdateRecipe, setShowUpdateRecipe] = useState(false)
+    const [confirmDeleteCheck, setConfirmDeleteCheck] = useState(false)
 
     const fetchRecipeAndShowFullRecipe = async (id) => {
         onToggle(id)
@@ -41,9 +42,18 @@ const Recipe = ({ recipe, onToggle, onDelete, onUpdate }) => {
 
 
             </div>
-            {showFullRecipe && <Button className={'recipe-button'} color={'blue'} text={!showUpdateRecipe ? 'Update Recipe' : 'Close'} onClick={() => setShowUpdateRecipe(!showUpdateRecipe)}></Button>}
-            {showUpdateRecipe && <UpdateRecipe onUpdate={onUpdate} recipe={recipe} setShowUpdateRecipe={setShowUpdateRecipe} />}
-            {showFullRecipe && <Button className={'recipe-button'} color={'red'} text={'Delete Recipe'} onClick={() => onDelete(recipe.id)}></Button>}
+            <div id='delte-and-edit-buttons'>
+                {(errorMessage !== '' && recipe.id === errorMessage.id) && <h4 className="recipe-error-message">{errorMessage.message}</h4>}
+
+                {showFullRecipe && <Button className={'recipe-btn'} color={!showUpdateRecipe ? 'blue' : '#C67979'}
+                    text={!showUpdateRecipe ? 'Update Recipe' : 'Close'} onClick={() => setShowUpdateRecipe(!showUpdateRecipe)}></Button>}
+
+                {showUpdateRecipe && <UpdateRecipe onUpdate={onUpdate} recipe={recipe} setShowUpdateRecipe={setShowUpdateRecipe} />}
+
+                {(confirmDeleteCheck) && <h4 className="recipe-error-message">{'Are you sure you want to delete this recipe?'}</h4>}
+                {(showFullRecipe && !showUpdateRecipe) && <Button className={'recipe-btn'} color={!confirmDeleteCheck ? 'red' : '#C67979'} text={!confirmDeleteCheck ? 'Delete Recipe' : 'No, do not delete'} onClick={() => setConfirmDeleteCheck(!confirmDeleteCheck)}></Button>}
+                {(showFullRecipe && !showUpdateRecipe && confirmDeleteCheck) && <Button className={'recipe-btn'} color={'red'} text={confirmDeleteCheck ? 'Yes, delete' : 'Delete Recipe'} onClick={() => { setConfirmDeleteCheck(false); onDelete(recipe) }}></Button>}
+            </div>
         </div>
     );
 };
@@ -51,8 +61,4 @@ const Recipe = ({ recipe, onToggle, onDelete, onUpdate }) => {
 export default Recipe;
 
 
-//<h3>{recipe.name}
-//{/* <FaTimes style={{ color: 'red', cursor: 'pointer' }}
-//    onClick={() => onDelete(recipe.id)} /> */}
-//</h3>
 

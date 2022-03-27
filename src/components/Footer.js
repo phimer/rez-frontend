@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 const Footer = () => {
     return (
         <footer>
-            <p>&copy; Philip Mertz 2021</p>
-            <Link to='/about'>About</Link>
+            <Link id="footer-link" to='/about'>&copy; Philip Mertz 2021</Link>
         </footer>
     )
 }

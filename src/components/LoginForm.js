@@ -56,7 +56,7 @@ const LoginForm = ({ onLogin, onCreate, message }) => {
                     />
                 </div>
 
-                <p>{message}</p>
+                <p className='recipe-error-message'>{message}</p>
 
                 {showLoginButton && <div>
                     <input type='submit' value='Login' className='btn btn-block main-btn' />
