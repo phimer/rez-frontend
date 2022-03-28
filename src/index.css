@@ -30,7 +30,7 @@
   background: #000;
   color: #fff;
   border: none;
-  padding: 10px 10px;
+  /* padding: 10px 10px; */
   margin: 5px 0px 5px 0px;
   border-radius: 5px;
   cursor: pointer;
@@ -290,11 +290,12 @@ footer {
 }
 
 .login-btn {
-  margin-right: 50px;
+  /* margin-right: 50px; */
   height: 30px;
   font-size: 12px;
   width: 100px;
-  padding-bottom: 25px; /* padding is used to keep text center - fix maybe */
+
+  /* padding-bottom: 25px; padding is used to keep text center - doesnt work when logged in */
 }
 
 #login-header {
@@ -333,7 +334,8 @@ footer {
   margin-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
-}
+  height: 43px; /* just a quick fix - for some reason this div has a lot of bottom padding   */
+} 
 
 
 
@@ -363,9 +365,9 @@ footer {
     margin-left: -5px;
   }
 
-  .login-btn {
+  /* .login-btn {
     margin-right: 5px;
-  }
+  } */
 
 }
 
@@ -396,9 +398,9 @@ footer {
     margin-left: -5px;
   }
 
-  .login-btn {
+  /* .login-btn {
     margin-right: 5px;
-  }
+  } */
 
 }
 
@@ -457,9 +459,9 @@ footer {
     margin-right: 5vw;
   }
   
-  .login-btn {
+  /* .login-btn {
     margin-right: 30px;
-  }
+  } */
 
 }
 
