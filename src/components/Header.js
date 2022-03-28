@@ -14,16 +14,19 @@ const Header = ({ title, onAdd, showAdd }) => {
 
 
     return (
-        <header className='header'>
-            <h1 className="title">{title}</h1>
-            {/* <h1 style={{ color: 'red', backgroundColor: 'black' }}>{title}</h1>
-            <h1 style={headingStyle}>{title}</h1> */}
+        <div className='header-box'>
+            <div className='header'>
 
-            {
-                location.pathname === '/' && (
-                    <Button className={'add-new-recipe-btn'} color={showAdd ? '#C67979' : '#86C679'} text={showAdd ? 'Close' : 'Add new Recipe'} onClick={onAdd} />)
-            }
-        </header >
+                <h1 className="title">{title}</h1>
+                {
+                    location.pathname === '/' && (
+                        <Button className={'add-new-recipe-btn'} color={showAdd ? '#C67979' : '#86C679'} text={showAdd ? 'Close' : 'Add new Recipe'} onClick={onAdd} />)
+                }
+            </div >
+
+
+        </div >
+
 
     )
 

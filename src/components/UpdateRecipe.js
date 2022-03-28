@@ -95,8 +95,10 @@ const UpdateRecipe = ({ onUpdate, recipe, setShowUpdateRecipe }) => {
                     onChange={(e) => setReminder(e.currentTarget.checked)}
                 />
             </div> */}
+            <div id="a">
 
-            <input type='submit' value='Update' color="blue" className='btn btn-block recipe-btn update-recipe-btn' />
+                <input type='submit' value='Update' color="blue" className='btn recipe-btn update-recipe-btn' />
+            </div>
         </form>
     )
 }

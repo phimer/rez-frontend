@@ -2,8 +2,7 @@
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+
   /* background-color: #00B74A; */
   
 
@@ -11,108 +10,84 @@
 
 }
 
-/* .app {
-  height: calc(100% - 60px);
-} */
+.app {
+ 
+}
+
 
 
 .container {
-  margin-top: 0px;
   overflow: auto;
   min-height: 300px;
-  border: 0px solid green;
-  padding: 0px;
-  border-radius: 0px;
-  margin: 5px 30px 0 30px;
+  margin-top: 5px;
+  margin-right: 30px;
+  margin-left: 30px;
 
 }
+
+.btn {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 10px;
+  margin: 5px 0px 5px 0px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 3vw;
+  /* font-family: inherit; */
+}
+
+
+.add-new-recipe-btn {
+
+  font-size: 25px;
+  height: 55px;
+  width: 35vw;
+  max-width: 300px;
+}
+
+.title {
+  font-size: 80px;
+  color: #FFFEE0;
+}
+
+
+
+/* for the green box */
+.header-box {
+
+  height: 100px;
+  margin-left: -30px;
+  margin-right: -30px;
+  background-color:green;  
+
+}
+
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  font-size: 30px;
-  background-color:green;
-  ;
-  
   height: 100px;
-  /* border: 2px solid green;
-  border-radius: 5px; */
-}
-
-.title{
-
+  margin-bottom: 20px;
   margin-left: 30px;
-  color: #FFFEE0;
+  margin-right: 30px;
+  background-color: green;
+  
 }
+
+/* recipe start */
 
 .recipe {
   border: 4px solid green ;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 10px 10px;
   cursor: pointer;
   margin: 5px;
-  
-
 }
 
-.add-form {
-  border: 0px solid green;
-  border-radius: 5px;
-  padding: 10px 20px 10px 10px;
-}
-
-.add-form label {
-  font-size: 20px;
-  color: green;
-}
-
-.form-control {
-  margin: 20px 0;
-}
-
-.form-control label {
-  display: block;
-}
-
-.form-control input {
-  width: 100%;
-  height: 40px;
-  margin: 5px;
-  padding: 3px 7px;
-  font-size: 17px;
-}
-
-.form-control textarea {
-  width: 100%;
-  height: auto;
-  margin: 5px;
-  padding: 3px 7px;
-  font-size: 17px;
-  resize: none;
-  /* overflow: hidden; */
-}
-
-.form-control-check {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.form-control-check label {
-  flex: 1;
-}
-
-.form-control-check input {
-  flex: 2;
-  height: 20px;
-}
-
-footer {
-  margin-top: 30px;
-  text-align: center;
-}
 
 .recipes-table{
   /* display: flex;
@@ -120,7 +95,7 @@ footer {
   align-items: center; */
   table-layout: fixed;
   width: 100%;
-  font-size: 30px;
+  font-size: 3.5vw;
 
 }
 
@@ -142,22 +117,25 @@ td{
   margin-top: 50px;
   text-decoration: underline;  
   text-decoration-color: green;
-  font-size: 60px;   
+  font-size: 5vw;   
 
 }
+
+#ingredients{
+  font-size: 5vw;
+}
+
+#preparation{
+  font-size: 4vw;
+}
+
 .full-recipe-paragraphs{
   font-weight: bold;
   white-space: pre-wrap;
   margin-bottom: 50px;
 }
 
-#ingredients{
-  font-size: 60px;
-}
 
-#preparation{
-  font-size: 50px;
-}
 
 
 hr {
@@ -172,19 +150,102 @@ hr {
 
 }
 
-.btn {
-  display: inline-block;
-  background: #000;
-  color: #fff;
-  border: none;
-  padding: 10px 10px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 15px;
-  font-family: inherit;
+.recipe-error-message {
+  text-align: center;
+  margin: 10px 0 10px 0;
+  color: red;
+  font-size: 20px;
 }
+
+.recipe-btn{
+  width: 100%;
+  height: 8vw;   
+  max-height: 50px;
+}
+
+.update-recipe-btn {
+  background-color: blue;
+  margin-top: 10px;
+}
+
+.add-recipe-btn {
+  background-color: #86C679;
+  margin-top: 10px;
+}
+
+/* #delte-and-edit-buttons {
+  background-color: green;
+} */
+
+/* recipe end */
+
+/* add recipe start */
+
+.add-form {
+  border: 0px solid green;
+  border-radius: 5px;
+  padding: 10px 10px 10px 10px;
+
+}
+
+.add-form label {
+  font-size: 20px;
+  color: green;
+}
+
+.form-control {
+  margin-top: 10px;
+  /* margin-right: 10px; */
+}
+
+.form-control label {
+  display: block;
+}
+
+.form-control input {
+  width: 100%;
+  height: 40px;
+  margin-top: 5px;
+  padding: 3px 7px; 
+  font-size: 17px;
+}
+
+.form-control textarea {
+  width: 100%;
+  height: auto;
+  margin-top: 5px;
+  padding: 3px 7px;
+  font-size: 17px;
+  resize: none;
+  /* overflow: hidden; */
+}
+
+
+/* .form-control-check {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-control-check label {
+  flex: 1;
+}
+
+.form-control-check input {
+  flex: 2;
+  height: 20px;
+} */
+
+
+/* add recipe end */
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+}
+
+
+
 
 .btn:focus {
   outline: none;
@@ -200,68 +261,50 @@ hr {
   
 }
 
+.login-form {
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.login-form-btn {
+  text-align: center;
+}
 
 .main-btn {
   background-color: #5783EA;
-  text-align: center;
+  
 }
 
 .secondary-btn {
   background-color: #A8EEEA;
   margin-top: 10px;
   margin-bottom: 10px;
-  text-align: center;
+  
 }
 
-.recipe-btn{
-  width: 100%;
-  height: 50px;   
-}
 
-.update-recipe-btn {
-  background-color: blue;
-}
 
-.add-recipe-btn {
-  background-color: #86C679;
-}
 
 #login-heading {
   color: #5783EA;
 }
 
 .login-btn {
-  margin-right: 0px;
+  margin-right: 50px;
   height: 30px;
   font-size: 12px;
   width: 100px;
+  padding-bottom: 25px; /* padding is used to keep text center - fix maybe */
 }
 
 #login-header {
   display: flex;
   justify-content: right;
   align-items: right;
- 
 }
 
-.login-header-div {
-  margin-left: 30px;
-  margin-right: 30px;
-}
 
-.add-new-recipe-btn {
-  margin-right: 30px;
-  font-size: 20px;
-  height: 60px;
-  width: 250px;
-}
 
-.recipe-error-message {
-  text-align: center;
-  margin: 10px 0 10px 0;
-  color: red;
-  font-size: 20px;
-}
 
  Footer {
   text-align: right;
@@ -286,6 +329,188 @@ hr {
   align-items: right;
   border: 1px solid #C67979;
   border-radius: 5px;
-  margin: 5px 0 5px 0;
-  padding: 0 5px 0 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+
+
+/* iphone se */
+@media screen and (max-width: 375px) {
+
+  .title {
+    font-size: 30px;
+  }
+
+  .add-new-recipe-btn {
+    font-size: 15px;
+  }
+
+  .header{
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+
+  .container {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .header-box {
+    margin-right: -5px;
+    margin-left: -5px;
+  }
+
+  .login-btn {
+    margin-right: 5px;
+  }
+
+}
+
+
+
+/* iphone xr */
+@media screen and (min-width: 375px) {
+
+  .title {
+    font-size: 35px;
+  }
+  .add-new-recipe-btn {
+    font-size: 16px;
+  }
+
+  .header{
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+
+  .container {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .header-box {
+    margin-right: -5px;
+    margin-left: -5px;
+  }
+
+  .login-btn {
+    margin-right: 5px;
+  }
+
+}
+
+@media screen and (min-width: 601px) {
+
+
+
+  .title {
+    font-size: 50px;
+  }
+  .recipe-btn{
+    font-size: 15px;
+  }
+
+  .login-form-btn {
+    font-size: 15px;
+  }
+
+}
+
+/* limit recipes table and full recipe font size */
+@media screen and (min-width: 900px) {
+
+  #ingredients{
+    font-size: 50px;
+  }
+  
+  #preparation{
+    font-size: 40px;
+  }
+  .full-recipe-headings{
+    font-size: 50px;   
+  
+  }
+
+  .recipes-table{
+    font-size: 30px;
+  }
+
+
+}
+
+
+
+@media screen and (min-width: 1000px) {
+  .container {
+    margin: 5px 5vw 0 5vw;
+  }
+  .header {
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+
+  .login-form {
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+  
+  .login-btn {
+    margin-right: 30px;
+  }
+
+}
+
+@media screen and (min-width: 1300px) {
+  .container {
+    margin: 5px 10vw 0 10vw;
+  }
+  /* .header {
+    margin: 0 10vw 0 10vw;
+  } */
+
+/*   
+  .header-box {
+    margin: 0 -10vw 0 -10vw;
+  
+  } */
+
+  .header {
+    /* background-color: yellow; */
+    margin-left: 10vw;
+    margin-right: 10vw;
+  }
+
+  .login-form {
+    margin-left: 10vw;
+    margin-right: 10vw;
+  }
+
+
+}
+
+@media screen and (min-width: 1600px) {
+  .container {
+    margin: 5px 15vw 0 15vw;
+
+   
+  }
+  /* .header {
+    margin: 0 15vw 0 15vw;
+  } */
+
+  .header {
+    /* background-color: red; */
+    margin-left: 15vw;
+    margin-right: 15vw;
+  }
+
+  .login-form {
+    margin-left: 15vw;
+    margin-right: 15vw;
+  }
+
+
 }

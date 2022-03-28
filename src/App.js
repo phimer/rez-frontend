@@ -7,8 +7,8 @@ import LoginHeader from './components/LoginHeader'
 import Footer from './components/Footer'
 import About from './components/About'
 import LoginForm from './components/LoginForm'
-const BACKEND_ADDRESS = 'https://flavorofthemonth.de/api'
-//const BACKEND_ADDRESS = 'http://127.0.0.1:8080/api'
+//const BACKEND_ADDRESS = 'https://flavorofthemonth.de/api'
+const BACKEND_ADDRESS = 'http://127.0.0.1:8080/api'
 
 const App = () => {
 
@@ -285,8 +285,8 @@ const App = () => {
           {showLoginUser && <LoginForm onLogin={loginUser} onCreate={createUser} message={wrongUsernamePasswordMessage} />}
         </div>
 
-        <Header onAdd={() => setShowAddRecipe(!showAddRecipe)} showAdd={showAddRecipe} />
 
+        <Header onAdd={() => setShowAddRecipe(!showAddRecipe)} showAdd={showAddRecipe} />
         <div className='container'>
           <Routes>
             <Route path='/' exact element={

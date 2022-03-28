@@ -35,7 +35,7 @@ const LoginForm = ({ onLogin, onCreate, message }) => {
 
 
     return (
-        <div className='add-form'>
+        <div className='add-form login-form'>
             <h2 id='login-heading'>{showLoginButton ? "Login" : "Create New Account"}</h2>
 
             <form onSubmit={onSubmit}>
@@ -59,14 +59,14 @@ const LoginForm = ({ onLogin, onCreate, message }) => {
                 <p className='recipe-error-message'>{message}</p>
 
                 {showLoginButton && <div>
-                    <input type='submit' value='Login' className='btn btn-block main-btn' />
+                    <input type='submit' value='Login' className='btn btn-block main-btn login-form-btn' />
                     <button onClick={() => setShowLoginButton(!showLoginButton)}
-                        value='Register New Account' className='btn btn-block secondary-btn'>Register New Account</button>
+                        value='Register New Account' className='btn btn-block secondary-btn login-form-btn'>Register New Account</button>
                 </div>}
                 {!showLoginButton && <div>
-                    <input type='submit' value='Create New Account' className='btn btn-block main-btn' />
+                    <input type='submit' value='Create New Account' className='btn btn-block main-btn login-form-btn' />
                     <button onClick={() => setShowLoginButton(!showLoginButton)}
-                        value='Go back to Login' className='btn btn-block secondary-btn'>Go back to Login</button>
+                        value='Go back to Login' className='btn btn-block secondary-btn login-form-btn'>Go back to Login</button>
                 </div>}
             </form>
 
