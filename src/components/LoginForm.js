@@ -50,7 +50,7 @@ const LoginForm = ({ onLogin, onCreate, message }) => {
 
                 <div className='form-control'>
                     <label>Password</label>
-                    <input type='text'
+                    <input type='password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />

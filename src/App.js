@@ -7,8 +7,8 @@ import LoginHeader from './components/LoginHeader'
 import Footer from './components/Footer'
 import About from './components/About'
 import LoginForm from './components/LoginForm'
-
-const BACKEND_ADDRESS = 'http://localhost:8080/api'
+const BACKEND_ADDRESS = 'https://flavorofthemonth.de/api'
+//const BACKEND_ADDRESS = 'http://127.0.0.1:8080/api'
 
 const App = () => {
 
@@ -58,7 +58,7 @@ const App = () => {
     const data = await res.json()
 
     if (res.status === 200) {
-      setCurrentLoggedInUser(data)
+      setCurrentLoggedInUser(capitalizeFirstLetter(data))
     }
 
 
@@ -81,7 +81,7 @@ const App = () => {
   //Fetch Recipes
   const fetchRecipes = async () => {
 
-    const res = await fetch('http://localhost:8080/api/recipe')
+    const res = await fetch(`${BACKEND_ADDRESS}/recipe`)
     const data = await res.json()
 
     return data
@@ -92,7 +92,7 @@ const App = () => {
 
     console.log(id)
 
-    const res = await fetch(`http://localhost:8080/api/recipe/${id}`)
+    const res = await fetch(`${BACKEND_ADDRESS}/recipe/${id}`)
     const data = await res.json()
 
     return data
@@ -105,6 +105,7 @@ const App = () => {
 
     console.log('add: ', recipe)
 
+    console.log(localStorage.getItem("token"))
 
     const res = await fetch(`${BACKEND_ADDRESS}/recipe`, {
       method: 'POST',
@@ -183,7 +184,8 @@ const App = () => {
     const res = await fetch(`${BACKEND_ADDRESS}/recipe`, {
       method: 'PUT',
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'Authorization': localStorage.getItem("token")
       },
       body: JSON.stringify(recipe)
     })
@@ -206,7 +208,6 @@ const App = () => {
 
   // Login User
   const loginUser = async (loginData) => {
-    console.log(loginData);
 
     setWrongUsernamePasswordMessage('');
 
@@ -219,15 +220,14 @@ const App = () => {
     })
 
     const data = await res.json()
-    console.log('data: ', data)
-    console.log(res.status)
+
 
     if (res.status === 200) {
 
       setShowLoginUser(false)
       setUserLoggedIn(true)
       localStorage.setItem("token", "Bearer " + data.jwt)
-      setCurrentLoggedInUser(loginData.username)
+      setCurrentLoggedInUser(capitalizeFirstLetter(loginData.username))
 
     } else {
       setWrongUsernamePasswordMessage('Wrong Username or Password')
@@ -249,7 +249,7 @@ const App = () => {
     const data = await res.json()
     console.log(data)
 
-    setCurrentLoggedInUser(user.username)
+    setCurrentLoggedInUser(capitalizeFirstLetter(user.username))
     setUserLoggedIn(true)
     setShowLoginUser(false)
   }
@@ -266,6 +266,11 @@ const App = () => {
     setTimeout(() => {
       setRecipeErrorMessage({ id: '', message: '' })
     }, 5000);
+  }
+
+
+  const capitalizeFirstLetter = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1)
   }
 
   return (
