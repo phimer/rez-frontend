@@ -10,12 +10,6 @@
 
 }
 
-.app {
- 
-}
-
-
-
 .container {
   overflow: auto;
   min-height: 300px;
@@ -274,7 +268,8 @@ footer {
 
 .main-btn {
   background-color: #5783EA;
-  
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .secondary-btn {
@@ -300,14 +295,30 @@ footer {
   /* padding-bottom: 25px; padding is used to keep text center - doesnt work when logged in */
 }
 
-#login-header {
-  display: flex;
+/* LOGIN HEADER start */
+#login-div {
+  display:flex;
   justify-content: right;
-  align-items: right;
+  align-items: center;
+
 }
 
+#logout-div {
+  display:flex;
 
+  justify-content: right;
+  align-items: center;
+  height: 40px;
+}
 
+#user-greeting {
+  margin-top: 20px;
+  margin-right: 30px;
+  text-decoration: none;
+  
+}
+
+/* LOGIN HEADER end */
 
  Footer {
   text-align: right;
@@ -320,24 +331,6 @@ footer {
   text-decoration: none;
 } 
 
-#user-greeting {
-  margin-top: 12px;
-  margin-right: 30px;
-  text-decoration: none;
-}
-
-#user-greeting-div {
-  display: flex;
-  justify-content: right;
-  align-items: right;
-  border: 1px solid #C67979;
-  border-radius: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  height: 43px; /* just a quick fix - for some reason this div has a lot of bottom padding   */
-} 
 
 
 
@@ -370,6 +363,10 @@ footer {
   /* .login-btn {
     margin-right: 5px;
   } */
+
+  #login-header {
+    margin-right: 5px;
+  }
 
 }
 
@@ -404,11 +401,43 @@ footer {
     margin-right: 5px;
   } */
 
+  #login-header {
+    margin-right: 5px;
+  }
+
+
+}
+
+
+/* all phones */
+/* login header left and right instead of just left */
+@media screen and (max-width: 600px) {
+
+  #login-div {
+    display:flex;
+    justify-content: right;
+    align-items: center;
+
+  }
+
+  #logout-div {
+    display:flex;
+
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+  }
+
+  #user-greeting {
+    margin-top: 20px;
+    margin-left: 10px;
+    text-decoration: none;
+    margin-right: 0;
+  }
+
 }
 
 @media screen and (min-width: 601px) {
-
-
 
   .title {
     font-size: 50px;
@@ -460,10 +489,11 @@ footer {
     margin-left: 5vw;
     margin-right: 5vw;
   }
-  
-  /* .login-btn {
+
+
+  #login-header {
     margin-right: 30px;
-  } */
+  }
 
 }
 
@@ -482,7 +512,6 @@ footer {
   } */
 
   .header {
-    /* background-color: yellow; */
     margin-left: 10vw;
     margin-right: 10vw;
   }
