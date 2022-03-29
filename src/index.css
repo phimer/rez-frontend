@@ -25,7 +25,7 @@
   color: #fff;
   border: none;
   /* padding: 10px 10px; */
-  margin: 5px 0px 5px 0px;
+  margin: 5px 0 5px 0;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
@@ -176,7 +176,6 @@ hr {
 /* add recipe start */
 
 .add-form {
-  border: 0px solid green;
   border-radius: 5px;
   padding: 10px 10px 10px 10px;
 
@@ -268,8 +267,6 @@ footer {
 
 .main-btn {
   background-color: #5783EA;
-  margin-top: 0px;
-  margin-bottom: 0px;
 }
 
 .secondary-btn {
@@ -315,7 +312,7 @@ footer {
   margin-top: 20px;
   margin-right: 30px;
   text-decoration: none;
-  
+
 }
 
 /* LOGIN HEADER end */
@@ -546,4 +543,17 @@ footer {
   }
 
 
+}
+
+
+/* ios fix for round buttons */
+input, textarea {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+#top-warning {
+  color: white;
+  text-align: center;
+  background-color: red;
 }

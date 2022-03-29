@@ -10,9 +10,12 @@ const Recipe = ({ recipe, onToggle, onDelete, onUpdate, errorMessage }) => {
     const [showFullRecipe, setShowFullRecipe] = useState(false)
     const [showUpdateRecipe, setShowUpdateRecipe] = useState(false)
     const [confirmDeleteCheck, setConfirmDeleteCheck] = useState(false)
+    const [fullRecipe, setFullRecipe] = useState({})
 
     const fetchRecipeAndShowFullRecipe = async (id) => {
-        onToggle(id)
+
+        setFullRecipe(await onToggle(id)) //on toggle fetches full recipe -> await response and set it to full recipe
+
         setShowFullRecipe(!showFullRecipe)
 
     }
@@ -38,7 +41,7 @@ const Recipe = ({ recipe, onToggle, onDelete, onUpdate, errorMessage }) => {
                 </table>
 
 
-                {showFullRecipe && <FullRecipe recipe={recipe} />}
+                {showFullRecipe && <FullRecipe recipe={fullRecipe} />}
 
 
             </div>

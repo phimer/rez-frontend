@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import Button from './Button'
 
-const LoginForm = ({ onLogin, onCreate, message }) => {
+const LoginForm = ({ onLogin, onCreate, message, setMessage }) => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -25,12 +25,13 @@ const LoginForm = ({ onLogin, onCreate, message }) => {
             onCreate({ username, password })
         }
 
-        // setName('')
-        // setTime('')
-        // setIngredients('')
-        // setPreparation('')
-        // setCategory('')
 
+    }
+
+
+    const secondaryButtonOnClick = () => {
+        setShowLoginButton(!showLoginButton)
+        setMessage('') //resets error message to nothing (when user wants to create account that already exists and then goes back to login, the message has to be cleared)
     }
 
 
@@ -60,12 +61,12 @@ const LoginForm = ({ onLogin, onCreate, message }) => {
 
                 {showLoginButton && <div>
                     <input type='submit' value='Login' className='btn btn-block main-btn login-form-btn' />
-                    <button onClick={() => setShowLoginButton(!showLoginButton)}
+                    <button onClick={() => secondaryButtonOnClick()}
                         value='Register New Account' className='btn btn-block secondary-btn login-form-btn'>Register New Account</button>
                 </div>}
                 {!showLoginButton && <div>
                     <input type='submit' value='Create New Account' className='btn btn-block main-btn login-form-btn' />
-                    <button onClick={() => setShowLoginButton(!showLoginButton)}
+                    <button onClick={() => secondaryButtonOnClick()}
                         value='Go back to Login' className='btn btn-block secondary-btn login-form-btn'>Go back to Login</button>
                 </div>}
             </form>

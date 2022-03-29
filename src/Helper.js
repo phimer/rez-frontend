@@ -2,9 +2,6 @@
 
 const countLinesInTextHelper = (text) => {
 
-
-    console.log('kek')
-
     let count = 0;
 
     for (let char of text) {

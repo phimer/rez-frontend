@@ -7,7 +7,11 @@ import LoginHeader from './components/LoginHeader'
 import Footer from './components/Footer'
 import About from './components/About'
 import LoginForm from './components/LoginForm'
+
+//Remote Backend
 const BACKEND_ADDRESS = 'https://flavorofthemonth.de/api'
+
+//Local Backend
 //const BACKEND_ADDRESS = 'http://127.0.0.1:8080/api'
 
 const App = () => {
@@ -15,7 +19,7 @@ const App = () => {
   const [recipes, setRecipes] = useState([])
   const [showAddRecipe, setShowAddRecipe] = useState(false)
 
-  const [wrongUsernamePasswordMessage, setWrongUsernamePasswordMessage] = useState('')
+  const [userLoginErrorMessage, setUserLoginErrorMessage] = useState('')
   const [recipeErrorMessage, setRecipeErrorMessage] = useState({ id: '', message: '' })
   const [addNewRecipeErrorMessage, setAddNewRecipeErrorMessage] = useState('');
 
@@ -65,7 +69,6 @@ const App = () => {
   }
 
 
-  //not really sure
   useEffect(() => {
     getRecipesAndSetState()
     checkIfUserIsAuthenticated()
@@ -172,8 +175,6 @@ const App = () => {
       body: JSON.stringify(recipe)
     })
 
-    const data = await res.json()
-
     if (res.status === 200) {
       setRecipes(recipes.filter((r) => r.id !== recipe.id));
     } else if (res.status === 403) {
@@ -191,7 +192,7 @@ const App = () => {
   // Login User
   const loginUser = async (loginData) => {
 
-    setWrongUsernamePasswordMessage('');
+    setUserLoginErrorMessage('');
 
     const res = await fetch(`${BACKEND_ADDRESS}/authenticate`, {
       method: 'POST',
@@ -212,26 +213,30 @@ const App = () => {
       setCurrentLoggedInUser(capitalizeFirstLetter(loginData.username))
 
     } else {
-      setWrongUsernamePasswordMessage('Wrong Username or Password')
+      setUserLoginErrorMessage('Wrong Username or Password')
     }
   }
 
   // Create User and login
-  const createUser = async (user) => {
+  const createUser = async (userData) => {
 
     const res = await fetch(`${BACKEND_ADDRESS}/user`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(userData)
     })
 
-    const data = await res.json()
+    if (res.status === 200) {
 
-    setCurrentLoggedInUser(capitalizeFirstLetter(user.username))
-    setUserLoggedIn(true)
-    setShowLoginUser(false)
+      loginUser(userData)
+
+    } else if (res.status === 400) {
+      setUserLoginErrorMessage('Username already exists')
+    }
+
+
   }
 
   // Logout User
@@ -257,12 +262,13 @@ const App = () => {
     <Router>
 
       <div className='app'>
+        {/* <p id="top-warning">Under Construction</p> */}
 
         <div className='login-header-div'>
           <LoginHeader onLoginClick={() => setShowLoginUser(!showLoginUser)} showLogin={showLoginUser} login={loginUser}
             userLoggedIn={userLoggedIn} onLogout={logoutUser} currentUser={currentLoggedInUser} />
 
-          {showLoginUser && <LoginForm onLogin={loginUser} onCreate={createUser} message={wrongUsernamePasswordMessage} />}
+          {showLoginUser && <LoginForm onLogin={loginUser} onCreate={createUser} message={userLoginErrorMessage} setMessage={setUserLoginErrorMessage} />}
         </div>
 
 
