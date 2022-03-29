@@ -8,19 +8,31 @@ import { useLocation } from 'react-router-dom'
 
 
 
-const Header = ({ title, onAdd, showAdd }) => {
+const Header = ({ title, setShowAdd, showAdd, setShowSearch, showSearch }) => {
 
     const location = useLocation()
+
 
 
     return (
         <div className='header-box'>
             <div className='header'>
 
-                <h1 className="title">{title}</h1>
                 {
                     location.pathname === '/' && (
-                        <Button className={'add-new-recipe-btn'} color={showAdd ? '#C67979' : '#86C679'} text={showAdd ? 'Close' : 'Add new Recipe'} onClick={onAdd} />)
+                        <Button className={'add-new-recipe-btn'} color={showSearch ? '#C67979' : '#86C679'}
+                            text={showSearch ? 'Close' : 'Search Recipe'} onClick={() => {
+                                setShowSearch(!showSearch)
+                                setShowAdd(false)
+                            }} />)
+                }
+                {
+                    location.pathname === '/' && (
+                        <Button className={'add-new-recipe-btn'} color={showAdd ? '#C67979' : '#86C679'}
+                            text={showAdd ? 'Close' : 'Add new Recipe'} onClick={() => {
+                                setShowAdd(!showAdd)
+                                setShowSearch(false)
+                            }} />)
                 }
             </div >
 

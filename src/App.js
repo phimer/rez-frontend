@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import Recipes from './components/Recipes'
 import AddRecipe from './components/AddRecipe'
+import SearchRecipe from './components/SearchRecipe'
 import LoginHeader from './components/LoginHeader'
 import Footer from './components/Footer'
 import About from './components/About'
@@ -27,6 +28,8 @@ const App = () => {
   const [showLoginUser, setShowLoginUser] = useState(false)
   const [currentLoggedInUser, setCurrentLoggedInUser] = useState('')
 
+  const [showSearchRecipe, setShowSearchRecipe] = useState(false)
+  const [searchErrorMessage, setSearchErrorMessage] = useState('')
 
 
 
@@ -189,6 +192,11 @@ const App = () => {
 
   }
 
+  // Search Recipe
+  const searchRecipe = async () => {
+    console.log('comming soon')
+  }
+
   // Login User
   const loginUser = async (loginData) => {
 
@@ -272,22 +280,27 @@ const App = () => {
         </div>
 
 
-        <Header onAdd={() => setShowAddRecipe(!showAddRecipe)} showAdd={showAddRecipe} />
-        <div className='container'>
-          <Routes>
-            <Route path='/' exact element={
-              (
-                <>
+        <Routes>
+          <Route path='/' exact element={
+            (
+              <>
+                <Header setShowAdd={setShowAddRecipe} showAdd={showAddRecipe}
+                  setShowSearch={setShowSearchRecipe} showSearch={showSearchRecipe} />
+
+                <div className='container'>
+
+                  {showSearchRecipe && <SearchRecipe onSearch={searchRecipe} errorMessage={searchErrorMessage} />}
+
                   {showAddRecipe && <AddRecipe onAdd={addRecipe} errorMessage={addNewRecipeErrorMessage} />}
 
                   <Recipes recipes={recipes} onToggle={fetchRecipe} onDelete={deleteRecipe} onUpdate={updateRecipe} errorMessage={recipeErrorMessage} />
-                </>
-              )
+                </div>
+              </>
+            )
+          } />
+          <Route path='/about' element={<About />} />
+        </Routes>
 
-            } />
-            <Route path='/about' element={<About />} />
-          </Routes>
-        </div>
       </div>
       <Footer />
 

@@ -36,10 +36,11 @@
 
 .add-new-recipe-btn {
 
-  font-size: 25px;
-  height: 55px;
-  width: 35vw;
-  max-width: 300px;
+  font-size: 625px;
+  height: 75px;
+  width: 40vw;
+  max-width: 450px;
+  color: #FFFEE0;
 }
 
 .title {
@@ -52,7 +53,7 @@
 /* for the green box */
 .header-box {
 
-  height: 100px;
+  height: 120px;
   margin-left: -30px;
   margin-right: -30px;
   background-color:green;  
@@ -64,11 +65,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100px;
+  height: 120px;
   margin-bottom: 20px;
   margin-left: 30px;
   margin-right: 30px;
-  background-color: green;
   
 }
 
@@ -376,7 +376,7 @@ footer {
     font-size: 35px;
   }
   .add-new-recipe-btn {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .header{
@@ -447,6 +447,10 @@ footer {
     font-size: 15px;
   }
 
+  .add-new-recipe-btn {
+    font-size: 25px;
+  }
+
 }
 
 /* limit recipes table and full recipe font size */
@@ -468,6 +472,10 @@ footer {
     font-size: 30px;
   }
 
+  .add-new-recipe-btn {
+    font-size: 2.5vw;
+  }
+  
 
 }
 
@@ -498,15 +506,6 @@ footer {
   .container {
     margin: 5px 10vw 0 10vw;
   }
-  /* .header {
-    margin: 0 10vw 0 10vw;
-  } */
-
-/*   
-  .header-box {
-    margin: 0 -10vw 0 -10vw;
-  
-  } */
 
   .header {
     margin-left: 10vw;
@@ -518,6 +517,9 @@ footer {
     margin-right: 10vw;
   }
 
+  .add-new-recipe-btn {
+    font-size: 30px;
+  }
 
 }
 
