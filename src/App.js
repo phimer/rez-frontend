@@ -90,8 +90,6 @@ const App = () => {
   //Fetch Recipe
   const fetchRecipe = async (id) => {
 
-    console.log(id)
-
     const res = await fetch(`${BACKEND_ADDRESS}/recipe/${id}`)
     const data = await res.json()
 
@@ -102,10 +100,6 @@ const App = () => {
 
   //Add Recipe
   const addRecipe = async (recipe) => {
-
-    console.log('add: ', recipe)
-
-    console.log(localStorage.getItem("token"))
 
     const res = await fetch(`${BACKEND_ADDRESS}/recipe`, {
       method: 'POST',
@@ -142,13 +136,7 @@ const App = () => {
   // Delete Recipe
   const deleteRecipe = async (recipe) => {
 
-    console.log('delete', recipe.id);
-
-
     const json = JSON.stringify(recipe)
-
-    console.log(recipe)
-    console.log("localstorgae: " + localStorage.getItem("token"))
 
     const res = await fetch(`${BACKEND_ADDRESS}/recipe`, {
       method: 'DELETE',
@@ -158,8 +146,6 @@ const App = () => {
       },
       body: json
     })
-
-    console.log('res; ', res);
 
     if (res.status === 200) {
       setRecipes(recipes.filter((r) => r.id !== recipe.id));
@@ -176,10 +162,6 @@ const App = () => {
 
   // Update Recipe
   const updateRecipe = async (recipe) => {
-
-    console.log('update', recipe.id);
-
-    console.log(recipe)
 
     const res = await fetch(`${BACKEND_ADDRESS}/recipe`, {
       method: 'PUT',
@@ -236,7 +218,6 @@ const App = () => {
 
   // Create User and login
   const createUser = async (user) => {
-    console.log('create user: ' + user.username, user.password)
 
     const res = await fetch(`${BACKEND_ADDRESS}/user`, {
       method: 'POST',
@@ -247,7 +228,6 @@ const App = () => {
     })
 
     const data = await res.json()
-    console.log(data)
 
     setCurrentLoggedInUser(capitalizeFirstLetter(user.username))
     setUserLoggedIn(true)
