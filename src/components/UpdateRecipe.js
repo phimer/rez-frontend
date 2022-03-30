@@ -24,7 +24,7 @@ const UpdateRecipe = ({ onUpdate, recipe, setShowUpdateRecipe }) => {
             }
         }
 
-        return count + 1;
+        return count + 2;
     }
 
 
@@ -32,10 +32,6 @@ const UpdateRecipe = ({ onUpdate, recipe, setShowUpdateRecipe }) => {
 
     const onSubmit = (e) => {
         e.preventDefault()
-
-        // if (!name) {
-        //     alert('Add more stuff')
-        // }
 
         onUpdate({ id, name, time, ingredients, preparation, category })
 
@@ -87,18 +83,11 @@ const UpdateRecipe = ({ onUpdate, recipe, setShowUpdateRecipe }) => {
                     onChange={(e) => setCategory(e.target.value)}
                 />
             </div>
-            {/* <div className='form-control'>
-                <label>Set Reminder</label>
-                <input type='checkbox'
-                    checked={reminder}
-                    value={reminder}
-                    onChange={(e) => setReminder(e.currentTarget.checked)}
-                />
-            </div> */}
-            <div id="a">
 
-                <input type='submit' value='Update' color="blue" className='btn recipe-btn update-recipe-btn' />
-            </div>
+
+
+            <input type='submit' value='Update' color="blue" className='btn recipe-btn update-recipe-btn' />
+
         </form>
     )
 }

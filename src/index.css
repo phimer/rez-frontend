@@ -235,11 +235,6 @@ hr {
 
 /* add recipe end */
 
-footer {
-  margin-top: 30px;
-  text-align: center;
-}
-
 
 
 
@@ -320,11 +315,12 @@ footer {
 
 /* LOGIN HEADER end */
 
+/* FOOTER start */
+/* 
  Footer {
-  text-align: right;
-  margin-right: 30px;
+
   background-color: white;
-}
+} */
 
 #footer-link {
   font-size: 10px;
@@ -332,7 +328,15 @@ footer {
 } 
 
 
+footer {
+  margin-top: 30px;
+  text-align: center;
+}
 
+/* FOOTER end */
+
+
+/* SCREEN SIZES start */
 
 /* iphone se */
 @media screen and (max-width: 375px) {
@@ -550,6 +554,7 @@ footer {
 
 }
 
+/* SCREEN SIZES end */
 
 /* ios fix for round buttons */
 input, textarea {
@@ -563,9 +568,32 @@ input, textarea {
   background-color: red;
 }
 
+
+
+/* LODING SPINNER start */
+
 .loading-spinner-div {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+
   text-align: center;
 }
+
+.main-page-loading-spinner {
+  margin-top: 100px;
+}
+
+.full-recipe-loading-spinner {
+  margin-top: 50px;
+}
+
+/* LODING SPINNER end */
+
+
+/* ABOUT start */
+
+.about-div {
+  text-align: center;
+}
+
+/* ABOUT end */

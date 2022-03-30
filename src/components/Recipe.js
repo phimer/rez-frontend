@@ -12,12 +12,20 @@ const Recipe = ({ recipe, onToggle, onDelete, onUpdate, errorMessage }) => {
     const [confirmDeleteCheck, setConfirmDeleteCheck] = useState(false)
     const [fullRecipe, setFullRecipe] = useState({})
 
+    const [loadingSpinner, setLoadingSpinner] = useState(false)
+
     const fetchRecipeAndShowFullRecipe = async (id) => {
 
-        setFullRecipe(await onToggle(id)) //on toggle fetches full recipe -> await response and set it to full recipe
+        //the function gets called when the full recipe is opened and when it is closed - don't want to fetch the full recipe when closing
+        if (!showFullRecipe) {
 
-        setShowFullRecipe(!showFullRecipe)
-
+            setShowFullRecipe(!showFullRecipe)
+            setLoadingSpinner(true)
+            setFullRecipe(await onToggle(id)) //on toggle fetches full recipe -> await response and set it to full recipe
+            setLoadingSpinner(false)
+        } else {
+            setShowFullRecipe(!showFullRecipe)
+        }
     }
 
     const replaceCommasWithSpaces = (text) => {
@@ -41,22 +49,40 @@ const Recipe = ({ recipe, onToggle, onDelete, onUpdate, errorMessage }) => {
                 </table>
 
 
-                {showFullRecipe && <FullRecipe recipe={fullRecipe} />}
+                {showFullRecipe && <FullRecipe recipe={fullRecipe} loadingSpinner={loadingSpinner} />}
+
+
 
 
             </div>
-            <div id='delte-and-edit-buttons'>
+
+            {showFullRecipe && <div id='delte-and-edit-buttons'>
+
+                {/* error message */}
                 {(errorMessage !== '' && recipe.id === errorMessage.id) && <h4 className="recipe-error-message">{errorMessage.message}</h4>}
 
-                {showFullRecipe && <Button className={'recipe-btn'} color={!showUpdateRecipe ? 'blue' : '#C67979'}
-                    text={!showUpdateRecipe ? 'Update Recipe' : 'Close'} onClick={() => setShowUpdateRecipe(!showUpdateRecipe)}></Button>}
+                {/* update button */}
+                {<Button className={'recipe-btn'} color={!showUpdateRecipe ? 'blue' : '#C67979'}
+                    text={!showUpdateRecipe ? 'Update Recipe' : 'Close'}
+                    onClick={() => setShowUpdateRecipe(!showUpdateRecipe)}></Button>}
 
-                {showUpdateRecipe && <UpdateRecipe onUpdate={onUpdate} recipe={fullRecipe} setShowUpdateRecipe={setShowUpdateRecipe} />}
+                {/* update recipe component */}
+                {showUpdateRecipe && <UpdateRecipe onUpdate={onUpdate} recipe={fullRecipe}
+                    setShowUpdateRecipe={setShowUpdateRecipe} />}
 
+                {/* delete confirm? message */}
                 {(confirmDeleteCheck) && <h4 className="recipe-error-message">{'Are you sure you want to delete this recipe?'}</h4>}
-                {(showFullRecipe && !showUpdateRecipe) && <Button className={'recipe-btn'} color={!confirmDeleteCheck ? 'red' : '#C67979'} text={!confirmDeleteCheck ? 'Delete Recipe' : 'No, do not delete'} onClick={() => setConfirmDeleteCheck(!confirmDeleteCheck)}></Button>}
-                {(showFullRecipe && !showUpdateRecipe && confirmDeleteCheck) && <Button className={'recipe-btn'} color={'red'} text={confirmDeleteCheck ? 'Yes, delete' : 'Delete Recipe'} onClick={() => { setConfirmDeleteCheck(false); onDelete(fullRecipe) }}></Button>}
-            </div>
+
+                {/* delete button */}
+                {(!showUpdateRecipe) && <Button className={'recipe-btn'}
+                    color={!confirmDeleteCheck ? 'red' : '#C67979'} text={!confirmDeleteCheck ? 'Delete Recipe' : 'No, do not delete'}
+                    onClick={() => setConfirmDeleteCheck(!confirmDeleteCheck)}></Button>}
+
+                {/* final delete button */}
+                {(!showUpdateRecipe && confirmDeleteCheck) && <Button className={'recipe-btn'}
+                    color={'red'} text={confirmDeleteCheck ? 'Yes, delete' : 'Delete Recipe'}
+                    onClick={() => { setConfirmDeleteCheck(false); onDelete(fullRecipe) }}></Button>}
+            </div>}
         </div>
     );
 };
