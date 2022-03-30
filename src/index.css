@@ -38,7 +38,7 @@
 
   font-size: 625px;
   height: 75px;
-  width: 40vw;
+  width: 45vw;
   max-width: 450px;
   color: #FFFEE0;
 }
@@ -79,7 +79,8 @@
   border-radius: 5px;
   padding: 10px 10px;
   cursor: pointer;
-  margin: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 
@@ -121,6 +122,7 @@ td{
 
 #preparation{
   font-size: 4vw;
+  white-space: pre-wrap;
 }
 
 .full-recipe-paragraphs{
@@ -210,6 +212,7 @@ hr {
   padding: 3px 7px;
   font-size: 17px;
   resize: none;
+  white-space: pre-wrap;
   /* overflow: hidden; */
 }
 
@@ -343,13 +346,13 @@ footer {
   }
 
   .header{
-    margin-right: 15px;
-    margin-left: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
   }
 
   .container {
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-right: 0;
+    margin-left: 0;
   }
 
   .header-box {
@@ -380,13 +383,13 @@ footer {
   }
 
   .header{
-    margin-right: 15px;
-    margin-left: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
   }
 
   .container {
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-right: 0;
+    margin-left: 0;
   }
 
   .header-box {
@@ -558,4 +561,11 @@ input, textarea {
   color: white;
   text-align: center;
   background-color: red;
+}
+
+.loading-spinner-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  text-align: center;
 }
