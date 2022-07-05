@@ -10,10 +10,10 @@ import About from './components/About'
 import LoginForm from './components/LoginForm'
 
 //Remote Backend
-//const BACKEND_ADDRESS = 'https://flavorofthemonth.de/api'
+const BACKEND_ADDRESS = 'https://flavorofthemonth.de/api'
 
 //Local Backend
-const BACKEND_ADDRESS = 'http://127.0.0.1:8080/api'
+//const BACKEND_ADDRESS = 'http://127.0.0.1:8080/api'
 
 const App = () => {
 
@@ -26,7 +26,7 @@ const App = () => {
 
   const [userLoggedIn, setUserLoggedIn] = useState(false)
   const [showLoginUser, setShowLoginUser] = useState(false)
-  const [currentLoggedInUser, setCurrentLoggedInUser] = useState('')
+  const [currentLoggedInUser, setCurrentLoggedInUser] = useState(null)
 
   const [showSearchRecipe, setShowSearchRecipe] = useState(false)
   const [searchErrorMessage, setSearchErrorMessage] = useState('')
@@ -261,8 +261,9 @@ const App = () => {
 
   // Logout User
   const logoutUser = async () => {
-    localStorage.removeItem("token")
-    setUserLoggedIn(false)
+    localStorage.removeItem("token");
+    setUserLoggedIn(false);
+    setCurrentLoggedInUser(null);
   }
 
 
@@ -303,7 +304,7 @@ const App = () => {
 
                   {showSearchRecipe && <SearchRecipe onSearch={searchRecipe} errorMessage={searchErrorMessage} />}
 
-                  {showAddRecipe && <AddRecipe onAdd={addRecipe} errorMessage={addNewRecipeErrorMessage} />}
+                  {showAddRecipe && <AddRecipe onAdd={addRecipe} errorMessage={addNewRecipeErrorMessage} currentUser={currentLoggedInUser} />}
 
 
                   {loadingSpinner && <div className='loading-spinner-div main-page-loading-spinner'>
