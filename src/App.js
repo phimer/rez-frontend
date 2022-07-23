@@ -9,6 +9,7 @@ import Footer from './components/Footer'
 import About from './components/About'
 import LoginForm from './components/LoginForm'
 
+
 //Remote Backend
 const BACKEND_ADDRESS = 'https://flavorofthemonth.de/api'
 
@@ -133,7 +134,7 @@ const App = () => {
       setShowAddRecipe(false)
     } else {
       if (res.status === 403) {
-        setAddNewRecipeErrorMessage('You have to be logged in to add recipes.')
+        setAddNewRecipeErrorMessage('You need to be logged in to add recipes.')
       } else {
         setAddNewRecipeErrorMessage('Internal Error. Try again.')
       }
@@ -278,6 +279,7 @@ const App = () => {
   const capitalizeFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1)
   }
+
 
   return (
     <Router>

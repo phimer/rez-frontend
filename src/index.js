@@ -3,9 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Helmet } from "react-helmet";
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* <Helmet>
+      <meta name="apple-mobile-web-app-capable" content="yes"></meta>
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"></meta>
+    </Helmet> */}
     <App />
   </React.StrictMode>,
   document.getElementById('root')

@@ -128,7 +128,7 @@ const AddRecipe = ({ onAdd, errorMessage, currentUser }) => {
         )
     } else {
         return (
-            <div className='recipe-error-message'>You have to be logged in to create a recipe!</div>
+            <div className='recipe-error-message'>You need to be logged in to create a recipe!</div>
         )
     }
 }
