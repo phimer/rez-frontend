@@ -287,7 +287,7 @@ const App = () => {
       <div className='app'>
         {/* <p id="top-warning">Under Construction</p> */}
 
-        <div className='login-header-div'>
+        <div className='login-header-div sticky-header'>
           <LoginHeader onLoginClick={() => setShowLoginUser(!showLoginUser)} showLogin={showLoginUser} login={loginUser}
             userLoggedIn={userLoggedIn} onLogout={logoutUser} currentUser={currentLoggedInUser} />
 
