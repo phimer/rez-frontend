@@ -2,25 +2,19 @@
 
 * {
   box-sizing: border-box;
-
-  /* background-color: #00B74A; */
-
-
   font-family: 'Helvetica', sans-serif;
 
 }
 
 body {
   background-color: #fff;
+  margin: 0 10px 0 10px;
 }
 
 .container {
   overflow: auto;
   min-height: 300px;
   margin-top: 5px;
-  margin-right: 30px;
-  margin-left: 30px;
-
 }
 
 .btn {
@@ -28,13 +22,11 @@ body {
   background: #000;
   color: #fff;
   border: none;
-  /* padding: 10px 10px; */
   margin: 5px 0 5px 0;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
   font-size: 3vw;
-  /* font-family: inherit; */
 }
 
 
@@ -58,8 +50,8 @@ body {
 .header-box {
 
   height: 120px;
-  margin-left: -30px;
-  margin-right: -30px;
+  margin-left: -10px;
+  margin-right: -10px;
   background-color: green;
 
 }
@@ -71,9 +63,6 @@ body {
   align-items: center;
   height: 120px;
   margin-bottom: 20px;
-  margin-left: 30px;
-  margin-right: 30px;
-
 }
 
 /* recipe start */
@@ -89,9 +78,6 @@ body {
 
 
 .recipes-table {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   table-layout: fixed;
   width: 100%;
   font-size: 3.5vw;
@@ -142,7 +128,6 @@ hr {
   border: 3px solid;
   border-color: rgb(0, 128, 0, 0.6);
   border-radius: 3px;
-  /* background: rgba(0, 128, 0, 0.1); */
 }
 
 #upper-hr {
@@ -194,7 +179,6 @@ hr {
 
 .form-control {
   margin-top: 10px;
-  /* margin-right: 10px; */
 }
 
 .form-control label {
@@ -364,13 +348,9 @@ footer {
   }
 
   .header-box {
-    margin-right: -5px;
-    margin-left: -5px;
+    margin-right: -10px;
+    margin-left: -10px;
   }
-
-  /* .login-btn {
-    margin-right: 5px;
-  } */
 
   #login-header {
     margin-right: 5px;
@@ -402,13 +382,10 @@ footer {
   }
 
   .header-box {
-    margin-right: -5px;
-    margin-left: -5px;
+    margin-right: -10px;
+    margin-left: -10px;
   }
 
-  /* .login-btn {
-    margin-right: 5px;
-  } */
 
   #login-header {
     margin-right: 5px;
@@ -545,12 +522,7 @@ footer {
 
   }
 
-  /* .header {
-    margin: 0 15vw 0 15vw;
-  } */
-
   .header {
-    /* background-color: red; */
     margin-left: 15vw;
     margin-right: 15vw;
   }
@@ -614,6 +586,19 @@ textarea {
   top: 0;
   background-color: white;
   z-index: '2';
-  margin-left: -30px;
-  margin-right: -30px;
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+.search-coming-soon {
+  align-items: center;
+  text-align: center;
+}
+
+
+.login-header-div {
+  box-shadow: 0 4px 2px -2px gray;
+  margin-left: -10px;
+  margin-right: -10px;
+  background-color: #D5F5D5;
 }
