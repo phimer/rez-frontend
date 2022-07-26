@@ -191,6 +191,7 @@ hr {
   margin-top: 5px;
   padding: 3px 7px;
   font-size: 17px;
+  border-radius: 5px;
 }
 
 .form-control textarea {
@@ -201,6 +202,7 @@ hr {
   font-size: 17px;
   resize: none;
   white-space: pre-wrap;
+  border-radius: 5px;
   /* overflow: hidden; */
 }
 
@@ -243,6 +245,7 @@ hr {
 .login-form {
   margin-right: 30px;
   margin-left: 30px;
+  background-color: #86C679;
 }
 
 .login-form-btn {
@@ -298,6 +301,7 @@ hr {
   margin-top: 20px;
   margin-right: 30px;
   text-decoration: none;
+  color: white;
 
 }
 

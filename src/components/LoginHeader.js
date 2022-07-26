@@ -11,7 +11,7 @@ const LoginHeader = ({ onLoginClick, showLogin, userLoggedIn, onLogout, currentU
             {userLoggedIn && <div id='logout-div'>
                 {<h4 id='user-greeting'>Hello, {currentUser}</h4>}
 
-                {<Button className='login-btn logout-btn' color={'#C67979'} text={'Logout'} onClick={onLogout} />}
+                {<Button className='login-btn logout-btn' color={'#A8EEEA'} text={'Logout'} onClick={onLogout} />}
             </div>}
         </div>
     )
