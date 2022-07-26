@@ -598,8 +598,8 @@ textarea {
 
 
 .login-header-div {
-  box-shadow: 0 4px 2px -2px gray;
+  /* box-shadow: 0 4px 2px -2px gray; */
   margin-left: -10px;
   margin-right: -10px;
-  background-color: #D5F5D5;
+  background-color: green;
 }
