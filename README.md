@@ -1,1 +1,1 @@
-Frontend Application for Recipe Web App (flavorofthemonth.de)
+React Frontend Application for Recipe Web App (flavorofthemonth.de)
